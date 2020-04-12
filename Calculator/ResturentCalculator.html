@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="normalize.css">
+    <!-- style.css -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div id="container">
+        
+        <h1>Calculate Your Bill</h1>
+
+        <div id="calculator">
+
+            <form>
+
+                <label>
+                    How much your bill ? <br>
+                    $ <input type="text" id="billAmount" >
+                </label>
+
+                <label>
+                    How was your service ? <br>
+                    <select name="" id="serviceQuality">
+                        <option disabled selected value="0">--Choose your Option--</option>
+
+                        <option value="0.3">30% - Outstanding</option>
+
+                        <option value="0.2">20% - Good</option>
+
+                        <option value="0.15">15% - It was okey</option>
+                    
+                        <option value="0.1">10% - Bad</option>
+
+                        <option value="0.05">5% - Terrible</option>
+                    </select>
+                </label>
+
+                <label>
+                    How many people are sharing the bill ? <br>
+                    <input type="text" id="totalPeople">People
+                </label>
+
+                <button type="button" id="calculate">Calculate</button>
+
+            </form>
+
+        </div><!--calculator-->
+
+        <div id="totalTip">
+
+            <sup>$</sup><span id="tip">0.00</span>
+            <small id="each">each</small>
+
+        </div><!--totalTip-->
+
+    </div><!--container-->
+
+
+    <!-- JavaScript -->
+    <script type="text/javascript">
+    
+        // custom function
+
+        function calculateTip(){
+
+        // store the data of inputs
+        var billAmount = document.getElementById("billAmount").Value;
+        var serviceQuality = document.getElementById("serviceQuality").Value;
+        var numPeople = document.getElementById("totalPeople").Value;
+
+        // Quick validation 
+        if (billAmount == " " || serviceQuality == 0){
+            window.alert("Please enter some values to get this baby up and running");
+            return; //this will prevent the function form counting
+        }
+
+        // check to se if this input is empty or less than or equal to one
+        if (numPeople == "" || numPeople <= 1){
+            numPeople = 1;
+
+            document.getElementById("each").style.display ="none";
+
+        } else {
+
+            document.getElementById("each").style.display = "block";
+
+        }
+
+        // Do sum math !
+        var total = (billAmount * serviceQuality) / numPeople;
+        total = Math.round(total * 100) / 100;
+        total = total.toFixed (2);
+
+        // display the tip !
+        document.getElementById("totalTip").style.display = "block";
+        document.getElementById("tip").innerHTML = total;
+        }
+        // hide the tip ammout on load
+        document.getElementById("totalTip").style.display = "none";
+        document.getElementById("each").style.display = "none";
+
+        // clicking the button calls our custom function
+        document.getElementById("calculate").onclick = function() { calculateTip(); };
+            
+    </script>
+    
+</body>
+</html>
